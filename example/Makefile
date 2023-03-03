@@ -14,7 +14,7 @@ C_INCLUDES =  \
 # optimization
 OPT = -Os
 
-CFLAGS += $(C_INCLUDES) $(OPT) -Wall -Werror -fdata-sections -ffunction-sections
+CFLAGS += $(C_INCLUDES) $(OPT) -Wall -Werror -fdata-sections -ffunction-sections -fno-common -ffunction-sections -fdata-sections -Wextra -Wshadow -Wno-unused-variable -Wimplicit-function-declaration -Wredundant-decls -Wstrict-prototypes -Wmissing-prototypes  -MD -Wall -Wundef -Werror -Wpedantic -Wparentheses -Wconversion -Wno-uninitialized
 
 # Generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
