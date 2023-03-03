@@ -12,7 +12,7 @@ uint16_t smbus_read_word(uint8_t i2c_addr, uint8_t command_code) {
     i2c_transmit(i2c_addr, tx_data, sizeof(tx_data));
     i2c_recieve(i2c_addr, rx_data, 2);
 
-    return rx_data[1] << 8 | rx_data[0];
+    return (uint16_t)(rx_data[1] << 8 | rx_data[0]);
 }
 
 void smbus_write_word(uint8_t i2c_addr, uint8_t command_code, uint16_t data) {
