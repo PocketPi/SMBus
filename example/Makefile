@@ -19,6 +19,7 @@ CFLAGS += $(C_INCLUDES) $(OPT) -Wall -Werror -fdata-sections -ffunction-sections
 # Generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 
+FILES := $(shell find ../ -type f -regex ".*\.[ch]")
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf
@@ -57,6 +58,10 @@ $(BUILD_DIR):
 clean:
 	-rm -fR $(BUILD_DIR)
 
+
+format:
+	@printf "$(FILES)\n"
+	clang-format -i -style=file --verbose $(FILES)
 
 #######################################
 # dependencies
