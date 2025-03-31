@@ -1,4 +1,5 @@
 #include "smbus.h"
+#include "i2c.h"
 #include <stddef.h>
 #include <string.h>
 
@@ -9,8 +10,7 @@ uint16_t smbus_read_word(uint8_t i2c_addr, uint8_t command_code) {
     uint8_t tx_data[] = {command_code};
     memset(rx_data, 0, SMBUS_MAX_READ_SIZE);
 
-    i2c_transmit(i2c_addr, tx_data, sizeof(tx_data));
-    i2c_recieve(i2c_addr, rx_data, 2);
+    i2c_transfer_receive(i2c_addr, tx_data, sizeof(tx_data), rx_data, 2);
 
     return (uint16_t)(rx_data[0] << 8 | rx_data[1]);
 }
@@ -25,8 +25,7 @@ void smbus_block_read(uint8_t i2c_addr, uint8_t command_code) {
     uint8_t tx_data[1] = {command_code};
     memset(rx_data, 0, SMBUS_MAX_READ_SIZE);
 
-    i2c_transmit(i2c_addr, tx_data, sizeof(tx_data));
-    i2c_recieve(i2c_addr, rx_data, SMBUS_MAX_READ_SIZE);
+    i2c_transfer_receive(i2c_addr, tx_data, sizeof(tx_data), rx_data, SMBUS_MAX_READ_SIZE);
 }
 
 void smbus_block_write(uint8_t i2c_addr, uint8_t command_code, uint8_t *data, uint8_t count) {
